@@ -12,9 +12,7 @@ export default {
     },
 
     fontFamily: {
-      nunito: ["Nunito Sans"],
-      inter: ["Inter"],
-      hanken: ["Hanken Grotesk"],
+      roboto: ["Roboto"],
     },
     colors: {
       primary: "#3BFF81",
