@@ -204,33 +204,6 @@ const Home = () => {
             </div>
         </section>
 
-        <section ref={catRef} className='bg-[#fff] flex items-center flex-col gap-[64px] py-[80px] px-[176px]'>
-            <div className='flex flex-col gap-[19px] items-center'>
-                <p className='font-roboto text-[#1D1D1F] text-[48px] font-medium leading-[48px] tracking-[-1.2px]'>
-                    Help Categories
-                </p>
-                <p className='font-roboto text-[#86868B] text-base leading-[26px] text-center'>
-                    Find answers to your questions by browsing our help categories or searching for <br />
-                    specific topics
-                </p>
-            </div>
-
-            <div className='grid grid-cols-3 gap-[24px]'>
-                {help.map((item, index) => (
-                    <div key={index} className='flex items-start h-[158px] p-6 shadow-lg gap-6 '>
-                        <div className='flex items-start gap-4'>
-                            <img src={item.img} alt={item.title} className='w-[48px] h-[48px]' />
-                            <div className='flex flex-col items-start gap-[7px]'>
-                                <p className='font-roboto text-[#1D1D1F] text-lg leading-[28px] tracking-[-0.45px] font-medium'>{item.title}</p>
-                                <p className='font-roboto text-[#86868B] text-base leading-[26px] '>{item.content}</p>
-                            </div>
-                            <IoIosArrowForward className='text-[#86868B] w-5 h-5' />
-                        </div>
-                    </div>
-                ))}  
-            </div>
-        </section>
-
         <section ref={aiRef} className='bg-[#F5F5F7] py-[80px] flex flex-col items-center gap-[64px] px-[272px]'>
             <div className='flex flex-col gap-[19px] items-center'>
                 <p className='font-roboto text-[#1D1D1F] text-[48px] font-medium leading-[48px] tracking-[-1.2px]'>
@@ -276,6 +249,34 @@ const Home = () => {
                     </div>
             </div>
         </section>
+
+        <section ref={catRef} className='bg-[#fff] flex items-center flex-col gap-[64px] py-[80px] px-[176px]'>
+            <div className='flex flex-col gap-[19px] items-center'>
+                <p className='font-roboto text-[#1D1D1F] text-[48px] font-medium leading-[48px] tracking-[-1.2px]'>
+                    Help Categories
+                </p>
+                <p className='font-roboto text-[#86868B] text-base leading-[26px] text-center'>
+                    Find answers to your questions by browsing our help categories or searching for <br />
+                    specific topics
+                </p>
+            </div>
+
+            <div className='grid grid-cols-3 gap-[24px]'>
+                {help.map((item, index) => (
+                    <div key={index} className='flex items-start h-[158px] p-6 shadow-lg gap-6 '>
+                        <div className='flex items-start gap-4'>
+                            <img src={item.img} alt={item.title} className='w-[48px] h-[48px]' />
+                            <div className='flex flex-col items-start gap-[7px]'>
+                                <p className='font-roboto text-[#1D1D1F] text-lg leading-[28px] tracking-[-0.45px] font-medium'>{item.title}</p>
+                                <p className='font-roboto text-[#86868B] text-base leading-[26px] '>{item.content}</p>
+                            </div>
+                            <IoIosArrowForward className='text-[#86868B] w-5 h-5' />
+                        </div>
+                    </div>
+                ))}  
+            </div>
+        </section>
+
 
         <section className="bg-[#F5F5F7] py-[80px] flex flex-col items-center mt-10 gap-[64px] px-[172px]">
             {/* Header Section */}
