@@ -11,6 +11,7 @@ import { BiBot } from 'react-icons/bi';
 //PNG
 import HomeBg from '../../assets/png/home_bg.png'
 import Chatbox from '../../assets/png/chatbox.png'
+import Microphone from '../../assets/png/microphone.png'
 
 //SVG
 import Bill from '../../assets/svg/bill.svg'
@@ -19,6 +20,7 @@ import General from '../../assets/svg/general.svg'
 import Meter from '../../assets/svg/meter.svg'
 import Phone from '../../assets/svg/phone.svg'
 import Rights from '../../assets/svg/rights.svg'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
@@ -32,6 +34,9 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
 
     // const vapi = new Vapi("78fc0021-e705-4055-8850-adddabc99333"); // Public key
+
+    const { state } = useLocation()
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -104,6 +109,18 @@ const Home = () => {
         }
     };
 
+    const aiRef = useRef(null)
+    const catRef = useRef(null)
+
+    useEffect(() => {
+        if (state?.section === "ai" && aiRef.current) {
+            aiRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+        if (state?.section === "cat" && catRef.current) {
+            catRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, [state]);
+
     // const start = async () => {
     //     setCallStatus('loading');
     //     setLoading(true);
@@ -153,31 +170,6 @@ const Home = () => {
         // }
     // };
 
-    const mapRef = useRef(null);
-
-    useEffect(() => {
-      if (window.google && mapRef.current) {
-        const map = new window.google.maps.Map(mapRef.current, {
-          center: { lat: 6.5244, lng: 3.3792 }, // Lagos coordinates
-          zoom: 10,
-        });
-  
-        const locations = [
-          { lat: 9.05785, lng: 7.49508 }, // Abuja
-          { lat: 6.5244, lng: 3.3792 },  // Lagos (Ikeja)
-          { lat: 6.3392, lng: 5.6273 },  // Benin
-          { lat: 6.5244, lng: 7.5189 },  // Enugu
-          { lat: 7.3775, lng: 3.947 },   // Ibadan
-        ];
-  
-        locations.forEach((location) => {
-          new window.google.maps.Marker({
-            position: location,
-            map: map,
-          });
-        });
-      }
-    }, []); 
 
     const help = [
         {
@@ -237,15 +229,16 @@ const Home = () => {
                     <button
                         className='w-[232px] bg-[#FEDA5E] h-[48px] rounded-full flex items-center justify-center'
                         type='button'
+                        onClick={() => navigate("/", {state: {section: "cat"}})}
                     >
                         <p className='text-[#026487] font-roboto font-medium leading-6 text-base'>Browse Help Categories</p>
                     </button>
                     <div 
                         className='flex items-center gap-[6px] cursor-pointer'
-                        onClick={callStatus === 'active' ? stopCall : startCall}
+                        onClick={() => navigate("/", {state: {section: "ai"}})}
                     >
                         <p className='text-[#fff] font-medium text-base leading-6'>
-                            {loading ? 'Connecting...' : callStatus === 'active' ? 'End Chat' : 'Chat with Assistant'}
+                            Speak with Assistant
                         </p>
                         <FaArrowDown className='w-4 h-4 text-[#fff]' />
                     </div>
@@ -261,7 +254,7 @@ const Home = () => {
             </div>
         </section>
 
-        <section className='bg-[#fff] flex items-center flex-col gap-[64px] py-[80px] px-[176px]'>
+        <section ref={catRef} className='bg-[#fff] flex items-center flex-col gap-[64px] py-[80px] px-[176px]'>
             <div className='flex flex-col gap-[19px] items-center'>
                 <p className='font-roboto text-[#1D1D1F] text-[48px] font-medium leading-[48px] tracking-[-1.2px]'>
                     Help Categories
@@ -288,7 +281,7 @@ const Home = () => {
             </div>
         </section>
 
-        <section className='bg-[#F5F5F7] py-[80px] flex flex-col items-center gap-[64px] px-[272px]'>
+        <section ref={aiRef} className='bg-[#F5F5F7] py-[80px] flex flex-col items-center gap-[64px] px-[272px]'>
             <div className='flex flex-col gap-[19px] items-center'>
                 <p className='font-roboto text-[#1D1D1F] text-[48px] font-medium leading-[48px] tracking-[-1.2px]'>
                     Chat with NERCBot Chatterbox
@@ -300,52 +293,37 @@ const Home = () => {
             </div>
 
                     {/* Vapi section */}
-            {/* <div className="w-full max-w-lg mx-auto border rounded-lg shadow-lg bg-white flex flex-col h-[500px]">
+            <div className="w-full max-w-lg mx-auto border relative rounded-lg shadow-lg bg-white flex flex-col h-[500px]">
                 <div className="bg-[#02526F] text-white py-3 px-4 text-lg font-medium flex justify-between items-center">
                     NERC Virtual Assistant
                     <div className="flex items-center gap-2">
                         <span className="text-sm">
                             {callStatus === 'active' ? 'Online' : 'Offline'}
                         </span>
-                        <div className={`w-3 h-3 rounded-full ${callStatus === 'active' ? 'bg-green-500' : 'bg-gray-500'}`} />
+                        <div className={`w-3 h-3 rounded-full ${callStatus === 'active' ? 'bg-[#00B259]' : 'bg-[#ccc]'}`} />
                     </div>
                 </div>
-                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F5F5F7]">
-                    {messages.map((msg, index) => (
-                        <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>            
-                            <div className={`max-w-xs p-3 rounded-lg ${msg.sender === 'user' 
-                                ? 'bg-[#026487] text-white' 
-                                : 'bg-white text-black border'}`}>
-                                <div className="flex items-center gap-2">
-                                    {msg.sender === 'bot' 
-                                        ? <BiBot className="text-[#02526F] text-xl" /> 
-                                        : <BsFillPersonFill className="text-[#026487] text-xl" />}
-                                    <p>{msg.text}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <div className="border-t p-2 bg-white flex items-center">
-                    <input
-                        type="text"
-                        className="flex-1 p-2 border rounded-lg outline-none"
-                        placeholder="Type your message here..."
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                        disabled={callStatus !== 'active'}
-                    />
-                    <button 
-                        onClick={handleSend} 
-                        className="ml-2 text-[#026487]"
-                        disabled={callStatus !== 'active'}
-                    >
-                        <IoIosSend className="text-2xl" />
-                    </button>
-                </div>
-            </div> */}
-            <img src={Chatbox} alt="Chatbox" className='' />
+
+                    <div className='flex flex-col items-center absolute inset-x-20 bottom-10 justify-center'>
+                        <div
+                            onClick={callStatus === 'active' ? stopCall : startCall}
+                            className={`
+                                w-20 h-20 bg-center bg-no-repeat bg-cover mt-[52px] cursor-pointer 
+                                ${callStatus === 'active' ? 'animate-pulse' : ''}
+                            `}
+                            style={{ backgroundImage: `url(${Microphone})` }}
+                        />
+                        <p className='text-[#4B5563] text-center font-roboto text-base font-semibold'>
+                          {callStatus === 'active' ? 'Speaking' : 'Tap to Speak'}
+                        
+                        </p>
+
+                        {/* Footer Disclaimer */}
+                        <p className="text-[10px] text-[#4B5563] font-roboto font-semibold mt-8">
+                            AI can make mistakes. Please double-check responses.
+                        </p>
+                    </div>
+            </div>
         </section>
 
         <section className="bg-[#F5F5F7] py-[80px] flex flex-col items-center gap-[64px] px-[172px]">
