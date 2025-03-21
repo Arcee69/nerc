@@ -162,49 +162,85 @@ const Home = () => {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
             }}
-            className='h-[772px] flex flex-col items-center pt-[140px] justify-center bg-[#02526F]'
+            className='h-[572px] flex items-start justify-between pt-[150px] px-10  bg-[#02526F]' //h-[772px]
         >
-            <div className='w-[768px] mx-auto flex items-center  flex-col gap-[14px]'>
-                <div
-                    className='bg-[#FFFFFF4A] w-[321.5px] h-[36px] rounded-full flex items-center justify-center'
-                >
-                    <p className='text-[#FFFFFF] font-medium font-roboto leading-5 text-[14px]'>Nigerian Electricity Regulatory Commission</p>
-                </div>
-                <p className='text-[#fff] text-[60px] font-medium font-roboto leading-[60px] tracking-[-1.5px] text-center'>How can we help you <br /> today?</p>
-                <p className='font-roboto text-[#fff]  text-[20px] leading-[28px]'>
-                    NERC is committed to providing you with the support and resources <br />
-                    you need. Browse our help categories or chat with our virtual assistant.
-                </p>
-                <div className='flex items-center mt-4 gap-4'>
-                    <button
-                        className='w-[232px] bg-[#FEDA5E] h-[48px] rounded-full flex items-center justify-center'
-                        type='button'
-                        onClick={() => navigate("/", {state: {section: "cat"}})}
+            <div className='flex flex-col items-center'>
+                <div className='w-[768px]  flex  flex-col items-start gap-[14px]'>
+                    <div
+                        className='bg-[#FFFFFF4A] w-[321.5px] h-[36px] rounded-full flex items-center justify-center'
                     >
-                        <p className='text-[#026487] font-roboto font-medium leading-6 text-base'>Browse Help Categories</p>
-                    </button>
-                    <div 
-                        className='flex items-center gap-[6px] cursor-pointer'
-                        onClick={() => navigate("/", {state: {section: "ai"}})}
-                    >
-                        <p className='text-[#fff] font-medium text-base leading-6'>
-                            Speak with Assistant
-                        </p>
-                        <FaArrowDown className='w-4 h-4 text-[#fff]' />
+                        <p className='text-[#FFFFFF] font-medium font-roboto leading-5 text-[14px]'>Nigerian Electricity Regulatory Commission</p>
                     </div>
-                    {/* <div className='flex items-center gap-[6px] cursor-pointer'>
-                        <p className='text-[#fff] font-medium text-base leading-6'>Chat with Assistant</p>
-                        <FaArrowDown className='w-4 h-4 text-[#fff]' />
-                    </div> */}
+                    <p className='text-[#fff] text-[60px] font-medium font-roboto leading-[60px] tracking-[-1.5px] text-center'>How can we help you today?</p>
+                    <p className='font-roboto text-[#fff]  text-[20px] leading-[28px]'>
+                        NERC is committed to providing you with the support and resources <br />
+                        you need. Browse our help categories or chat with our virtual assistant.
+                    </p>
+                    <div className='flex items-center justify-center mt-4 gap-4'>
+                        <button
+                            className='w-[232px] bg-[#FEDA5E] h-[48px] rounded-full flex items-center justify-center'
+                            type='button'
+                            onClick={() => navigate("/", {state: {section: "cat"}})}
+                        >
+                            <p className='text-[#026487] font-roboto font-medium leading-6 text-base'>Browse Help Categories</p>
+                        </button>
+                        {/* <div 
+                            className='flex items-center gap-[6px] cursor-pointer'
+                            onClick={() => navigate("/", {state: {section: "ai"}})}
+                        >
+                            <p className='text-[#fff] font-medium text-base leading-6'>
+                                Speak with Assistant
+                            </p>
+                            <FaArrowDown className='w-4 h-4 text-[#fff]' />
+                        </div> */}
+                    </div>
+                </div>
+
+                {/* <div className='bg-[#fff] flex items-center flex-col justify-center w-[40px] h-[40px] rounded-full mt-[78px]'>
+                    <FaArrowDown className='text-[#026487] w-5 h-5' />
+                </div> */}
+            </div>
+            <div className='flex '>
+                <div className="w-[350px]  border relative rounded-lg shadow-lg bg-white flex flex-col h-[250px]">
+                    <div className="bg-[#02526F] text-white py-3 px-4 text-lg font-medium flex justify-between items-center">
+                        NERC Virtual Assistant
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm">
+                                {callStatus === 'active' ? 'Online' : 'Offline'}
+                            </span>
+                            <div className={`w-3 h-3 rounded-full ${callStatus === 'active' ? 'bg-[#00B259]' : 'bg-[#ccc]'}`} />
+                        </div>
+                    </div>
+
+                        <div 
+                            className='flex flex-col items-center  justify-center'
+                            onClick={callStatus === 'active' ? stopCall : startCall}
+                        >
+                            <p className='text-[#4B5563] font-medium mt-5 text-base leading-6'>
+                                Speak with NERC Chatterbox
+                            </p>
+                            <div
+                                className={`
+                                    w-20 h-20 bg-center bg-no-repeat bg-cover mt-[12px] cursor-pointer 
+                                    ${callStatus === 'active' ? 'animate-pulse' : ''}
+                                `}
+                                style={{ backgroundImage: `url(${Microphone})` }}
+                            />
+                            <p className='text-[#4B5563] text-center font-roboto text-base font-semibold'>
+                                {callStatus === 'active' ? 'End Chat' : 'Tap to Speak'}
+                            </p>
+
+                            {/* Footer Disclaimer */}
+                            <p className="text-[10px] text-[#4B5563] font-roboto font-semibold mt-4">
+                                AI can make mistakes. Please double-check responses.
+                            </p>
+                        </div>
                 </div>
             </div>
-
-            <div className='bg-[#fff] flex items-center flex-col justify-center w-[40px] h-[40px] rounded-full mt-[78px]'>
-                <FaArrowDown className='text-[#026487] w-5 h-5' />
-            </div>
+            
         </section>
 
-        <section ref={aiRef} className='bg-[#F5F5F7] py-[80px] flex flex-col items-center gap-[64px] px-[272px]'>
+        {/* <section ref={aiRef} className='bg-[#F5F5F7] py-[80px] flex flex-col items-center gap-[64px] px-[272px]'>
             <div className='flex flex-col gap-[19px] items-center'>
                 <p className='font-roboto text-[#1D1D1F] text-[48px] font-medium leading-[48px] tracking-[-1.2px]'>
                     Chat with NERCBot Chatterbox
@@ -215,7 +251,7 @@ const Home = () => {
                 </p>
             </div>
 
-                    {/* Vapi section */}
+                    {/* Vapi section 
             <div className="w-full max-w-lg mx-auto border relative rounded-lg shadow-lg bg-white flex flex-col h-[300px]">
                 <div className="bg-[#02526F] text-white py-3 px-4 text-lg font-medium flex justify-between items-center">
                     NERC Virtual Assistant
@@ -242,13 +278,13 @@ const Home = () => {
                           {callStatus === 'active' ? 'End Chat' : 'Tap to Speak'}
                         </p>
 
-                        {/* Footer Disclaimer */}
+                        {/* Footer Disclaimer 
                         <p className="text-[10px] text-[#4B5563] font-roboto font-semibold mt-8">
                             AI can make mistakes. Please double-check responses.
                         </p>
                     </div>
             </div>
-        </section>
+        </section> */}
 
         <section ref={catRef} className='bg-[#fff] flex items-center flex-col gap-[64px] py-[80px] px-[176px]'>
             <div className='flex flex-col gap-[19px] items-center'>
