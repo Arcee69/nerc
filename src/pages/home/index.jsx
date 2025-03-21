@@ -121,56 +121,6 @@ const Home = () => {
         }
       }, [state]);
 
-    // const start = async () => {
-    //     setCallStatus('loading');
-    //     setLoading(true);
-    //     try {
-    //         const response = await vapi.start('b5901487-8fc1-4ad3-8baf-497a6f56ed38'); // Assistant ID
-    //         setVoxData(response);
-    //         console.log(response.status, 'brymo');
-    //         return response;
-
-    //     } catch (err) {
-    //         console.log(err, "err")
-    //         setCallStatus('inactive')
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
-    // const stop = () => {
-    //     console.log('stop');
-    //     setCallStatus('loading');
-    //     vapi.stop();
-    // };
-
-    // console.log(callStatus, "callStatus")
-    // console.log(voxData, "voxData")
-
-    // useEffect(() => {
-    //     vapi.on('call-start', () => setCallStatus('active'));
-    //     vapi.on('call-end', () => setCallStatus('inactive'));
-
-    //     return () => vapi.removeAllListeners();
-    // }, []);
-
-    // // Decide what text to show based on call status
-    // const statusText = (() => {
-    //     if (callStatus === 'loading') return 'Starting...';
-    //     if (callStatus === 'active') return 'Ara is listening...';
-    //     return 'Ara is not active';
-    // })();
-
-    // // If call is active, clicking the mic stops it; otherwise it starts.
-    // const handleMicClick = () => {
-        // if (callStatus === 'active') {
-        // stop();
-        // } else if (callStatus === 'inactive') {
-        // start();
-        // }
-    // };
-
-
     const help = [
         {
             img: Bill,
@@ -293,7 +243,7 @@ const Home = () => {
             </div>
 
                     {/* Vapi section */}
-            <div className="w-full max-w-lg mx-auto border relative rounded-lg shadow-lg bg-white flex flex-col h-[500px]">
+            <div className="w-full max-w-lg mx-auto border relative rounded-lg shadow-lg bg-white flex flex-col h-[300px]">
                 <div className="bg-[#02526F] text-white py-3 px-4 text-lg font-medium flex justify-between items-center">
                     NERC Virtual Assistant
                     <div className="flex items-center gap-2">
@@ -304,9 +254,11 @@ const Home = () => {
                     </div>
                 </div>
 
-                    <div className='flex flex-col items-center absolute inset-x-20 bottom-10 justify-center'>
+                    <div 
+                        className='flex flex-col items-center absolute inset-x-20 bottom-10 justify-center'
+                        onClick={callStatus === 'active' ? stopCall : startCall}
+                    >
                         <div
-                            onClick={callStatus === 'active' ? stopCall : startCall}
                             className={`
                                 w-20 h-20 bg-center bg-no-repeat bg-cover mt-[52px] cursor-pointer 
                                 ${callStatus === 'active' ? 'animate-pulse' : ''}
@@ -314,8 +266,7 @@ const Home = () => {
                             style={{ backgroundImage: `url(${Microphone})` }}
                         />
                         <p className='text-[#4B5563] text-center font-roboto text-base font-semibold'>
-                          {callStatus === 'active' ? 'Speaking' : 'Tap to Speak'}
-                        
+                          {callStatus === 'active' ? 'End Chat' : 'Tap to Speak'}
                         </p>
 
                         {/* Footer Disclaimer */}
@@ -326,7 +277,7 @@ const Home = () => {
             </div>
         </section>
 
-        <section className="bg-[#F5F5F7] py-[80px] flex flex-col items-center gap-[64px] px-[172px]">
+        <section className="bg-[#F5F5F7] py-[80px] flex flex-col items-center mt-10 gap-[64px] px-[172px]">
             {/* Header Section */}
             <div className="flex flex-col gap-[19px] items-center">
                 <p className="font-roboto text-[#1D1D1F] text-[48px] font-medium leading-[48px] tracking-[-1.2px]">
@@ -373,17 +324,7 @@ const Home = () => {
                             Serving: Lagos North and Central
                         </p>
                     </div>
-                {/* <div className="border-t p-4 flex flex-col gap-2">
-                    <p className="font-roboto  font-medium">Ikeja Electricity Distribution Company (IKEDC)</p>
-                    <div className="flex items-start gap-2">
-                    <span className="text-green-500 text-xl">📍</span>
-                    <p className="text-sm text-[#1D1D1F]"></p>
-                    </div>
-                    <div className="flex items-start gap-2">
-                    <span className="text-green-500 text-xl">📞</span>
-                    <p className="text-sm "></p>
-                    </div>
-                </div> */}
+           
                 </div>
             </div>
         </section>
